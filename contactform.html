@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script type="text/javascript">window["_gaUserPrefs"] = { ioo : function() { return true; } }</script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Contact Us</title>
+<style type="text/css">
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10pt;
+	color:#333333;
+	background: #FFFFFF;
+}
+input { margin: 8px 0px 8px 0px; display: inline-block; }
+</style>
+
+</head>
+<body>
+
+
+<?
+if ($_REQUEST['send']) {
+
+ 	$recipient = 'customers@macommclean.com';
+
+	if ($_REQUEST['message']) {
+		$usr_msg = trim(htmlspecialchars(preg_replace("/[^\w\-\r\n\:\'\"\,\.\!\? ]+/","",strip_tags($_REQUEST['message']))));
+	}
+
+	// check for submitting too fast
+	for($i=0; $i<5; $i++) {
+		$comp = md5(time() - $i);
+		if ($comp == $_REQUEST['hash']) {
+			$err .= "Sending too fast.  Please Try Again.<br />";
+		}
+	}
+
+	// check for JS
+	if ($_REQUEST['checks'] != 'yes') {
+		$err .= "You must enable JavaScript in your browser.<br />";
+	}
+
+	// check for stale timestamp
+	if ($_REQUEST['seq'] - time() < 0) {
+		$err .= "Form data timed out.  Please Try Again.<br />";
+	}
+
+	// check for referer from actual form
+	if(!preg_match("/contactform\.html/",$_SERVER['HTTP_REFERER'])) {
+		$err .= 'You must enable a referring url in your browser<br />';
+	}
+
+	if (strlen($usr_msg) > 2048) {
+		$err .= 'Please enter a shorter message.<br />';
+	}
+
+	if (strlen($usr_msg) < 7) {
+		$err .= 'Please enter a message.<br />';
+	}
+
+	if (preg_match("/http/", $_REQUEST['message'])) {
+		$err .= 'Linking Not Allowed.<br />';
+	}
+
+
+	$interact = 0;
+	if (is_numeric($_REQUEST['x'])) { $interact += $_REQUEST['x']; }
+	//if (is_numeric($_REQUEST['y'])) { $interact += $_REQUEST['y']; }
+	if (is_numeric($_REQUEST['z'])) { $interact += $_REQUEST['z']; }
+	if (is_numeric($_REQUEST['a'])) { $interact += $_REQUEST['a']; }
+
+	if ($interact < 15) {
+		$err .= 'ERROR: Please Call 413-586-4696.<br />';
+	}
+
+	$email = $_REQUEST['email'];
+	if (!preg_match("/^[\w\.\-]+@[\w\.\-]+\.[\w]+$/", $email)) $err .= 'You must enter a valid email address<br />';
+	if (!$_REQUEST['name']) $err .= "Please enter your name<br />";
+	if (!$_REQUEST['pphone']) $err .= "Please enter your phone number.<br />";
+	if ($_REQUEST['req_number']) $err .= 'Please Leave the Number Field Blank.<br />';
+	if (!$_REQUEST['hash'] || !$_REQUEST['seq']) $err .= 'Form Scraping not allowed.<br />';
+
+	$plaintext_message = "This message is from: " . strip_tags($_REQUEST['name']) . ' (' . strip_tags($_REQUEST['email']) . ")
+
+Phone: " . strip_tags($_REQUEST['pphone']) . "
+Time: " . strip_tags($_REQUEST['besttime']) . "
+
+------------------------------------------
+
+" . htmlspecialchars_decode($usr_msg) . "
+
+";
+	
+	if (!$err) {
+
+		$headers = "From: $recipient\n";
+		$headers .= "Reply-to: $email\n";
+
+		$sent = mail($recipient, "Contact from MCC website", $plaintext_message, $headers);
+
+		if (!$sent) {
+			$err = 'Something went wrong sending the email.  Please call us for assistance.';
+		}
+	}
+
+}
+if (!$sent) {
+	// display the page
+		?>
+<script>
+function activityWatcher(){
+ 
+    var clicks = 0;
+    var mousemoves = 0;
+	var keys = 0;
+	var touches = 0;
+ 
+    //The function that will be called whenever a user is active
+    function click_activity(){
+		clicks++;
+		document.getElementById("x").value = clicks;
+    }
+    function mousemove_activity(){
+		mousemoves++;
+		document.getElementById("y").value = mousemoves;
+    }
+    function key_activity(){
+		keys++;
+		document.getElementById("z").value = keys;
+    }
+    function touch_activity(){
+		touches++;
+		document.getElementById("a").value = touches;
+    }
+ 
+	document.addEventListener('mousedown', click_activity, true);
+	document.addEventListener('mousemove', mousemove_activity, true);
+	document.addEventListener('keydown', key_activity, true);
+	document.addEventListener('touchstart', touch_activity, true);
+ 
+}
+ 
+activityWatcher();
+</script>
+
+		<div id="contactform" style="margin: auto; max-width: 1024px;">
+			<form action="contactform.html" method="post">
+			    <input type="hidden" name="send" value="1" />
+			    <input type="hidden" name="hash" value="<?= md5(time()) ?>" />
+			    <input type="hidden" name="seq" value="<?= time()+600 ?>" />
+				<input type="hidden" name="checks" id="checks" value="" />
+				<input type="hidden" name="x" id="x" value="" />
+				<input type="hidden" name="y" id="y" value="" />
+				<input type="hidden" name="z" id="z" value="" />
+				<input type="hidden" name="a" id="a" value="" />
+				<div style="color: red; font-weight: bold;"><?= $err ?></div>
+				<fieldset>
+					<legend style="color: #990000; font-weight: bold; font-size: 1.5em;">MCC Contact Form</legend>
+					<div>
+						<label for="name">Name *</label>
+						<input type="text" name="name" id="name" value="<?= input_clean($_REQUEST['name']) ?>" style="width: 99%;" />
+					</div>
+					<div>
+						<label for="email">Email *</label>
+						<input type="text" name="email" id="email" value="<?= input_clean($_REQUEST['email']) ?>" style="width: 99%;" />
+					</div>
+					<div>
+						<label for="pphone">Phone *</label>
+						<input type="text" name="pphone" id="pphone" value="<?= input_clean($_REQUEST['pphone']) ?>" style="width: 99%;" />
+					</div>
+					<div>
+						<label for="pphone">Best time to contact you</label>
+						<input type="text" name="besttime" id="besttime" value="<?= input_clean($_REQUEST['besttime']) ?>" style="width: 99%;" />
+					</div>
+					<fieldset>
+						<legend>Message *</legend>
+						<textarea name="message" id="message" style="width: 100%" rows="6"><?= input_clean($_REQUEST['message']) ?></textarea>
+					</fieldset>
+
+					<div style="display: none;">
+						Number <input type="text" name="req_number" />
+					</div>
+					<input type="submit" name="submit" value="Send Message" />
+				</fieldset>
+			</form>
+			<script>
+			document.getElementById("checks").value = "yes";
+			</script>
+		</div>
+
+
+	<?
+} else {
+	?>
+
+	<h2>Message Sent!</h2>
+	<p><span style="color: #009900;">We will get back to you as soon as possible.</span></p>
+
+
+
+	<?
+}
+
+function input_clean($string) {
+	return trim(preg_replace("/[^\w\d\ \.\,\!\-\;\:\?\@]+/","",strip_tags($string)));
+}
+?>
+
+</body>
+</html>
