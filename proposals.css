@@ -1,0 +1,288 @@
+@charset "UTF-8";
+/* Custom fonts */
+@font-face {
+	font-family: BebasNeue;
+	src: url(BebasNeue.otf);
+}
+@font-face {
+	font-family: adventpro;
+	src: url(adventpro-medium.ttf);
+}
+@font-face {
+  font-family: gravitylight;
+  src: url(Gravity-Light.otf);
+
+}
+
+ #ourstory  {
+  width: 70%;
+  text-align: left;
+  margin-top: 10em;
+  margin: auto;
+  font-family: gravitylight;
+  font-size: 1.25em;
+
+}
+body {
+	font-family: source-sans-pro;
+	background-color: #59030a;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	font-style: normal;
+	font-weight: 200;
+}
+.qualitycontrol  {
+	text-align:left;
+	margin-left:auto;
+	margin-right:auto;
+	padding-left: 15%;
+	padding-right: 18%;
+	padding-top: 3em;
+}
+
+
+/* Container */
+.container {
+	width: 90%;
+	margin:0 auto;
+	overflow:hidden;
+	background-color: #FFFFFF;
+
+}
+/* Navigation */
+#headercontainer  {
+	width: 100%;
+	display: inline-block;
+	overflow: hidden;
+	text-align: left;
+}
+
+#headercontainer img {
+	float: left;
+	padding-left: 2em;
+}
+
+header {
+	width: 100%;
+	background-color: white;
+	border-bottom: 1px solid white;
+}
+#logo {
+	margin:auto;
+	text-align: left;
+	padding-left: 2em;
+
+}
+
+nav {
+	float: right;
+	width: 75%;
+	text-align: right;
+	margin-right: 25px;
+}
+header nav ul {
+	list-style: none;
+	float: right;
+}
+
+nav ul li {
+	float: left;
+	color: maroon;
+	font-size: 20px;
+	text-align: left;
+	margin-right: 25px;
+	letter-spacing: 2px;
+	font-weight: bold;
+	font-family: BebasNeue;
+	font-size: 18px;
+	padding-top:30px;
+}
+
+ul li a {
+	color: maroon;
+	text-decoration: none;
+}
+ ul li:hover a {
+    text-shadow: 0px 0px 7px grey;
+}
+
+#aboutcontainer  {
+  margin: 0 auto;
+  width: 90%;
+  overflow: hidden;
+}
+.quickfact{
+	width:30%;
+	float:left;
+}
+.copyright {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #717070;
+	color: #FFFFFF;
+	text-transform: uppercase;
+	font-weight: lighter;
+	letter-spacing: 2px;
+	border-top-width: 2px;
+	font-family: gravitylight;
+}
+.mapimage{
+	float:right;
+
+}
+#massmapcontainer  {
+	margin: 0 auto;
+	display: inline-block;
+
+}
+.about {
+	padding-left: 25px;
+	padding-right: 20vh;
+	padding-top: 8vh;
+	display: inline-block;
+	background-color: #FFFFFF;
+	float: right;
+
+
+}
+img {
+	float: right;
+}
+
+#massmapinfo {
+	float: left;
+	width: 35%;
+	padding-left: 8vh;
+	padding-top: 4vh;
+	padding-bottom: 5vh;
+	font-family: gravitylight;
+	font-size: 20px;
+
+
+}
+#mccdiff {
+	margin:auto;
+	text-align: center;
+	width: 75%;
+	font-family:adventpro;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+	padding-top: .4em;
+	padding-bottom: .4em;
+	font-size: 2.25em;
+}
+#proposals{
+	text-align: left;
+	
+}
+#process{
+	width:100%;
+	
+}
+
+
+@media (min-width: 320px)and (max-width: 770px) {
+.logo {
+	width: 100%;
+	text-align: center;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	color: #043745;
+}
+.opt{
+	display:none;
+}
+#massmapcontainer img {
+	width: 200px;
+	float:right;
+	padding-right: 4vh;
+}
+#massmapinfo{
+	display: inline-block;
+	float: none;
+	width:250px;
+	padding-left: 8vh;
+	padding-top: 5vh;
+	font-family: gravitylight;
+	font-size: 20px;
+}
+.container header nav {
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	width: 100%;
+	float: none;
+	overflow: auto;
+	display: inline-block;
+	background: #FFFFFF;
+}
+header nav ul {
+	padding: 0px;
+	float: none;
+	
+}
+nav ul li {
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	width: 100%;
+	text-align: center;
+	padding-top: 2px;
+	display:inline-block;
+	
+}
+#process{
+	width:100%;
+	
+}
+.qualitycontrol  {
+	text-align:left;
+	margin-left:auto;
+	margin-right:auto;
+	padding-left: 7;
+	padding-right: 7%;
+	padding-top: 3em;
+}
+ #ourstory  {
+  width: 90%;
+  text-align: left;
+  margin-top: 2em;
+  margin: auto;
+  font-family: gravitylight;
+  font-size: 1.25em;
+  text-align:center;
+
+}
+}
+.text_column {
+	width: 100%;
+	text-align: left;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+.thumbnail {
+	width: 100%;
+}
+.footer_column {
+	width: 100%;
+	margin-top: 0px;
+}
+.thumbnail {
+	width: 50%;
+}
+.banner {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.footer_column {
+	width: 100%;
+}
